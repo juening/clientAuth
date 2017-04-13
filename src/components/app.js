@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import Header from './common/header';
 
 export default class App extends Component {
   render() {
     return (
-      <div>React Redux simple starter</div>
+      <div>
+        <Header />
+        {this.props.children}
+      </div>
     );
   }
 }

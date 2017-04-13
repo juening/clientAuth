@@ -1,4 +1,8 @@
+const webpack = require('webpack');
+const path = require('path');
+
 module.exports = {
+  devtool: 'inline-source-map',
   entry: [
     './src/index.js'
   ],
@@ -12,12 +16,9 @@ module.exports = {
       exclude: /node_modules/,
       loader: 'babel',
       query: {
-        presets: ['react', 'es2015', 'stage-1']
+        presets: ['es2015', 'react', 'stage-1']
       }
     }]
-  },
-  resolve: {
-    extensions: ['', '.js', '.jsx']
   },
   devServer: {
     historyApiFallback: true,
