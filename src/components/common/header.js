@@ -3,13 +3,25 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 class Header extends Component {
+  renderHeader() {
+    if(this.props.authenticated) {
+      return (
+        <ul className="nav navbar-nav">
+          <li className="nav-item"><Link to="signout">Sign Out</Link></li>
+        </ul>
+      );
+    } 
+    return (
+        <ul className="nav navbar-nav">
+          <li className="nav-item"><Link to="signin">Sign In</Link></li>
+          <li className="nav-item"><Link to="signup">Sign Up</Link></li>
+        </ul>
+    );
+  }
   render() {
     return (
       <nav className="navbar navbar-light">
-        <ul className="nav navbar-nav">
-          <li className="nav-item"><Link to="signin">Sign in</Link></li>
-          <li className="nav-item"></li>
-        </ul>
+        {this.renderHeader()}
       </nav>
     );
   }

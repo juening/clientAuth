@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import toastr from 'toastr';
 import { browserHistory } from 'react-router';
 
 import * as actions from '../../actions';
 
 class Signin extends Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
     this.state = { user: {}, errors:{} };
     this.onChange = this.onChange.bind(this);
     this.signIn = this.signIn.bind(this);
@@ -31,9 +30,18 @@ class Signin extends Component {
     return formIsValid;
   }
 
-  redirect() {
-    toastr.success('Sign in success!');
-    browserHistory.push('feature');
+  // redirect() {
+  //   toastr.success('Sign in success!');
+  //   browserHistory.push('feature');
+  // }
+  renderAlert() {
+    if(this.props.errorMessage) {
+      return (
+        <div className="alert alert-danger">
+          <strong>Oops! </strong>{this.props.errorMessage}
+        </div>
+      );
+    }
   }
 
   signIn(event) {
@@ -41,12 +49,12 @@ class Signin extends Component {
     if(!this.formValid()){
       return;
     }
-    console.log(this.props);
-    this.props.signInUser(this.state.user)
-      .then(() => this.redirect())
-      .catch(error => {
-        toastr.error(error);
-      });
+    
+    this.props.signInUser(this.state.user);
+      // .then(() => this.redirect())
+      // .catch(error => {
+      //   toastr.error(error);
+      // });
   }
 
   render() {
@@ -67,15 +75,16 @@ class Signin extends Component {
           </div>
         </div>
         <button className="btn btn-primary" onClick={this.signIn} type="submit">Sign In</button>
+        {this.renderAlert()}
       </form>
     );
   }
 }
-//
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     actions: bindActionCreators(actions, dispatch)
-//   };
-// }
 
-export default connect(null, actions) (Signin);
+function mapStateToProps(state) {
+  return {errorMessage: state.auth.error };
+}
+
+
+
+export default connect(mapStateToProps, actions) (Signin);
