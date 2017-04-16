@@ -11,6 +11,9 @@ export default function (state={}, action) {
     case types.UNAUTH_USER:
       return { ... state, authenticated: false };
 
+       case types.FETCH_MESSAGE:
+        return { ...state, message: action.payload.secret };
+
     default:
       return state;
   }

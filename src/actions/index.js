@@ -41,3 +41,11 @@ export function signUpUser({ email, password }) {
       .catch((error) => { dispatch(authError( error.response.data.error ))});
   }
 }
+
+export function fetchMessage() {
+  return function(dispatch) {
+    axios.get(`${ROOT_URL}`, { headers: { authorization: localStorage.getItem('token')} }).then(response => {
+      dispatch({ type: types.FETCH_MESSAGE, payload: response.data });
+    })
+  }
+}
