@@ -22,9 +22,9 @@ class Signin extends Component {
   formValid(){
     let formIsValid = true;
     let error = {};
-    if(!this.state.user.password || this.state.user.password.length < 6 ) {
+    if(!this.state.user.password ) {
       formIsValid = false;
-      error.password = "Password must be at least 6 characters."
+      error.password = "Password must be provided."
     }
     this.setState({ errors: error });
     return formIsValid;
